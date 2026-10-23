@@ -97,32 +97,94 @@ const generateSatelliteSVG = (type, variant) => {
   if (type === 'valencia') {
     if (variant === 'before') {
       return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-        <rect width="800" height="600" fill="%23a8a29e"/>
-        <path d="M 100,0 L 700,600" stroke="%2364748b" stroke-width="40"/>
-        <rect x="250" y="150" width="300" height="300" fill="%23e2e8f0" opacity="0.3" rx="8"/>
-        <circle cx="400" cy="300" r="60" fill="%2322c55e" opacity="0.5"/>
-        <rect x="20" y="20" width="240" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
+        <rect width="800" height="600" fill="%23847577"/>
+        <path d="M 120,0 L 680,600" stroke="%23475569" stroke-width="36"/>
+        <rect x="260" y="160" width="280" height="280" fill="%23e2e8f0" opacity="0.35" rx="8"/>
+        <circle cx="400" cy="300" r="50" fill="%2315803d" opacity="0.6"/>
+        <rect x="20" y="20" width="250" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
         <circle cx="35" cy="40" r="6" fill="%2310b981"/>
         <text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="13" font-weight="bold">VALENCIA BASIN PRE-EVENT</text>
       </svg>`;
     } else {
       return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-        <rect width="800" height="600" fill="%2378716c"/>
-        <path d="M 0,100 Q 400,200 800,450 L 800,600 L 0,600 Z" fill="%23713f12" opacity="0.85"/>
-        <path d="M 50,220 Q 400,280 750,550 L 750,600 L 50,600 Z" fill="%230369a1" opacity="0.9"/>
-        <circle cx="380" cy="360" r="50" fill="%23ef4444" opacity="0.7"/>
-        <text x="320" y="365" fill="%23ffffff" font-family="sans-serif" font-size="12" font-weight="bold">SEVERE URBAN INUNDATION</text>
-        <rect x="20" y="20" width="300" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
+        <rect width="800" height="600" fill="%2357534e"/>
+        <!-- Torrential mud & water overflow -->
+        <path d="M 0,80 Q 380,180 800,420 L 800,600 L 0,600 Z" fill="%2378350f" opacity="0.88"/>
+        <path d="M 60,200 Q 400,260 760,540 L 760,600 L 60,600 Z" fill="%230284c7" opacity="0.95"/>
+        <rect x="260" y="160" width="280" height="280" fill="%23ef4444" opacity="0.6" rx="8"/>
+        <text x="310" y="310" fill="%23ffffff" font-family="sans-serif" font-size="14" font-weight="bold">HIGHWAY CV-400 CUT OFF</text>
+        <rect x="20" y="20" width="310" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
         <circle cx="35" cy="40" r="6" fill="%23ef4444"/>
-        <text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="13" font-weight="bold">FLASH FLOOD FLASH RADAR</text>
+        <text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="13" font-weight="bold">DANA FLASH FLOOD INUNDATION</text>
       </svg>`;
     }
   }
 
-  // Default / Koshi River preset
+  if (type === 'kerala') {
+    if (variant === 'before') {
+      return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+        <defs>
+          <linearGradient id="kgreen" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="%2314532d"/>
+            <stop offset="100%" stop-color="%23166534"/>
+          </linearGradient>
+        </defs>
+        <rect width="800" height="600" fill="url(%23kgreen)"/>
+        <!-- Periyar winding river channel -->
+        <path d="M 400,0 Q 420,150 360,250 T 420,450 T 380,600" fill="none" stroke="%230369a1" stroke-width="45"/>
+        <circle cx="250" cy="220" r="40" fill="%2394a3b8" opacity="0.5"/>
+        <text x="215" y="225" fill="%23ffffff" font-family="sans-serif" font-size="11">Aluva Town</text>
+        <rect x="20" y="20" width="240" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
+        <circle cx="35" cy="40" r="6" fill="%2310b981"/>
+        <text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="13" font-weight="bold">PERIYAR BASIN (PRE-MONSOON)</text>
+      </svg>`;
+    } else {
+      return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+        <rect width="800" height="600" fill="%2314532d"/>
+        <!-- Massive reservoir dam overspill flooding -->
+        <path d="M 150,0 Q 300,180 200,300 T 280,600 L 650,600 Q 550,350 620,0 Z" fill="%230284c7" opacity="0.92"/>
+        <path d="M 250,50 Q 380,220 320,380 T 400,600 L 520,600 Q 450,300 480,50 Z" fill="%230c4a6e"/>
+        <circle cx="250" cy="220" r="50" fill="%23ef4444" opacity="0.75"/>
+        <text x="210" y="225" fill="%23ffffff" font-family="sans-serif" font-size="11" font-weight="bold">ALUVA SUBMERGED</text>
+        <rect x="20" y="20" width="310" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
+        <circle cx="35" cy="40" r="6" fill="%23ef4444"/>
+        <text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="13" font-weight="bold">PERIYAR SPILL OVERFLOW (SAR)</text>
+      </svg>`;
+    }
+  }
+
+  if (type === 'nepal') {
+    if (variant === 'before') {
+      return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+        <rect width="800" height="600" fill="%23475569"/>
+        <!-- Mountain Gorge & Stream -->
+        <path d="M 0,300 L 800,300" stroke="%23334155" stroke-width="120"/>
+        <path d="M 0,300 L 800,300" stroke="%2338bdf8" stroke-width="20"/>
+        <path d="M 400,150 L 400,450" stroke="%23e2e8f0" stroke-width="3" stroke-dasharray="4,4"/>
+        <text x="410" y="280" fill="%23ffffff" font-family="sans-serif" font-size="11">Suspension Bridge</text>
+        <rect x="20" y="20" width="250" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
+        <circle cx="35" cy="40" r="6" fill="%2310b981"/>
+        <text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="13" font-weight="bold">KOSHI GORGE BASELINE</text>
+      </svg>`;
+    } else {
+      return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+        <rect width="800" height="600" fill="%23334155"/>
+        <!-- Debris Flow & Flash Surge Inundation -->
+        <path d="M 0,150 L 800,150 L 800,450 L 0,450 Z" fill="%23713f12" opacity="0.85"/>
+        <path d="M 0,220 L 800,220 L 800,380 L 0,380 Z" fill="%230369a1" opacity="0.9"/>
+        <circle cx="400" cy="300" r="16" fill="%23ef4444"/>
+        <text x="393" y="306" fill="%23ffffff" font-family="sans-serif" font-size="16" font-weight="bold">✕</text>
+        <text x="425" y="305" fill="%23fca5a5" font-family="sans-serif" font-size="12" font-weight="bold">BRIDGE WASHED OUT</text>
+        <rect x="20" y="20" width="310" height="40" rx="6" fill="%230f172a" opacity="0.85"/>
+        <circle cx="35" cy="40" r="6" fill="%23ef4444"/>
+        <text x="50" y="44" fill="%23ffffff" font-family="sans-serif" font-size="13" font-weight="bold">FLASH SURGE &amp; DEBRIS FLOW</text>
+      </svg>`;
+    }
+  }
+
+  // Fallback
   return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-    <rect width="800" height="600" fill="%231e3a8a"/>
-    <text x="300" y="300" fill="%23ffffff" font-size="20">Satellite Imagery Data</text>
+    <rect width="800" height="600" fill="%230f172a"/>
   </svg>`;
 };
 
@@ -142,7 +204,7 @@ export const PRESET_SCENARIOS = [
       inundatedAreaKm2: 148.6,
       inundatedAreaIncreasePct: 340,
       severity: 'CRITICAL',
-      damageScore: 92, // out of 100
+      damageScore: 92,
       affectedPopulation: 24500,
       isolatedCommunities: 14,
       submergedBuildings: 1820,
@@ -188,6 +250,66 @@ export const PRESET_SCENARIOS = [
       { id: 1, title: 'Rambla del Poyo Extreme Runoff Flash Flood', severity: 'Critical', time: '01h ago', status: 'Torrential' },
       { id: 2, title: 'A-3 Highway Submerged and Blocked by Debris', severity: 'Critical', time: '03h ago', status: 'Blocked' },
       { id: 3, title: 'Substation Paiporta Electric Outage', severity: 'High', time: '05h ago', status: 'Offline' }
+    ]
+  },
+  {
+    id: 'kerala-2024',
+    name: 'Periyar Basin, Kerala (Dam Spill & Monsoon Surge)',
+    badge: 'SAR Radar + Sentinel-2',
+    region: 'Aluva & Ernakulam, Kerala, India',
+    coordinates: [10.1076, 76.3516],
+    date: 'August 18, 2024',
+    satellite: 'Sentinel-1 Dual-Pol SAR & NISAR Sim',
+    resolution: '10m / High Res InSAR',
+    beforeImage: generateSatelliteSVG('kerala', 'before'),
+    afterImage: generateSatelliteSVG('kerala', 'after'),
+    metrics: {
+      inundatedAreaKm2: 112.4,
+      inundatedAreaIncreasePct: 290,
+      severity: 'SEVERE',
+      damageScore: 89,
+      affectedPopulation: 19400,
+      isolatedCommunities: 11,
+      submergedBuildings: 1260,
+      cutOffBridges: 4,
+      impassableRoadsKm: 34.0,
+      operationalShelters: 10,
+      shelterCapacityUsedPct: 82,
+      peakWaterDepthM: 2.6
+    },
+    criticalEvents: [
+      { id: 1, title: 'Aluva Manappuram Shiva Temple Submerged', severity: 'High', time: '01h ago', status: '3.1m Water' },
+      { id: 2, title: 'NH-544 Bridge Approach Flooded', severity: 'Critical', time: '03h ago', status: 'Impassable' }
+    ]
+  },
+  {
+    id: 'nepal-2024',
+    name: 'Koshi Gorge Basin, Nepal (Mountain Flash Surge)',
+    badge: 'Debris Flow Radar',
+    region: 'Sindhupalchok & Koshi River, Nepal',
+    coordinates: [27.7172, 85.3240],
+    date: 'September 28, 2024',
+    satellite: 'Sentinel-1 SAR C-Band & PlanetScope',
+    resolution: '10m / High Slope DEM',
+    beforeImage: generateSatelliteSVG('nepal', 'before'),
+    afterImage: generateSatelliteSVG('nepal', 'after'),
+    metrics: {
+      inundatedAreaKm2: 64.8,
+      inundatedAreaIncreasePct: 410,
+      severity: 'CRITICAL',
+      damageScore: 94,
+      affectedPopulation: 12800,
+      isolatedCommunities: 16,
+      submergedBuildings: 890,
+      cutOffBridges: 5,
+      impassableRoadsKm: 58.0,
+      operationalShelters: 6,
+      shelterCapacityUsedPct: 91,
+      peakWaterDepthM: 4.2
+    },
+    criticalEvents: [
+      { id: 1, title: 'Bhotekoshi Suspension Bridge Severed', severity: 'Critical', time: '30m ago', status: 'Collapsed' },
+      { id: 2, title: 'Araniko Highway Blocked by Landslip Surge', severity: 'Critical', time: '02h ago', status: 'Cut Off' }
     ]
   }
 ];

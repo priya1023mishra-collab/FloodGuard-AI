@@ -143,6 +143,8 @@ export const FLOOD_GEO_DATA = {
       }
     ]
   },
+
+  // Valencia Region
   'valencia-2024': {
     center: [39.4241, -0.4182],
     zoom: 13,
@@ -197,6 +199,116 @@ export const FLOOD_GEO_DATA = {
           [39.445, -0.410],
           [39.420, -0.420],
           [39.400, -0.430]
+        ]
+      }
+    ]
+  },
+
+  // Kerala Region
+  'kerala-2024': {
+    center: [10.1076, 76.3516],
+    zoom: 13,
+    floodPolygons: [
+      {
+        id: 'k-zone-1',
+        name: 'Periyar River Spill Basin',
+        severity: 'Critical',
+        depth: '2.6m',
+        color: '#0284c7',
+        fillColor: '#0369a1',
+        fillOpacity: 0.65,
+        coordinates: [
+          [10.125, 76.335],
+          [10.130, 76.365],
+          [10.095, 76.370],
+          [10.090, 76.340]
+        ]
+      }
+    ],
+    infrastructure: [
+      {
+        id: 'k-hosp-1',
+        name: 'Aluva Taluk Headquarters Hospital',
+        type: 'hospital',
+        status: 'Operational (Emergency Staging)',
+        severity: 'Warning',
+        coordinates: [10.1100, 76.3530],
+        details: 'Operating on emergency generators. Boat access active.',
+        actionRequired: 'Station medical response team'
+      },
+      {
+        id: 'k-bridge-1',
+        name: 'Marthanda Varma Bridge',
+        type: 'bridge',
+        status: 'WATER AT GIRDER LEVEL',
+        severity: 'Critical',
+        coordinates: [10.1060, 76.3490],
+        details: 'Heavy vehicle transit prohibited due to turbulent river swell.',
+        actionRequired: 'Divert heavy traffic via Seaport-Airport Road'
+      }
+    ],
+    roadSegments: [
+      {
+        id: 'k-road-1',
+        name: 'NH-544 Aluva Stretch',
+        status: 'Submerged (Water depth 0.8m)',
+        color: '#ef4444',
+        dashArray: '6,6',
+        weight: 5,
+        coordinates: [
+          [10.115, 76.345],
+          [10.105, 76.350],
+          [10.095, 76.355]
+        ]
+      }
+    ]
+  },
+
+  // Nepal Region
+  'nepal-2024': {
+    center: [27.7172, 85.3240],
+    zoom: 12,
+    floodPolygons: [
+      {
+        id: 'n-zone-1',
+        name: 'Koshi Mountain Torrent Inundation',
+        severity: 'Critical',
+        depth: '4.2m',
+        color: '#7f1d1d',
+        fillColor: '#b91c1c',
+        fillOpacity: 0.6,
+        coordinates: [
+          [27.735, 85.310],
+          [27.740, 85.340],
+          [27.705, 85.345],
+          [27.695, 85.315]
+        ]
+      }
+    ],
+    infrastructure: [
+      {
+        id: 'n-bridge-1',
+        name: 'Bhotekoshi Cable Suspension Bridge',
+        type: 'bridge',
+        status: 'SEVERED / ANCHOR FAILURE',
+        severity: 'Critical',
+        coordinates: [27.7180, 85.3250],
+        details: 'Anchor masonry swept away by boulder debris flow.',
+        actionRequired: 'Airlift emergency supplies across canyon'
+      }
+    ],
+    roadSegments: [
+      {
+        id: 'n-road-1',
+        name: 'Araniko Highway Sector 2',
+        status: 'Blocked by Landslip Surge',
+        color: '#ef4444',
+        dashArray: '6,6',
+        weight: 5,
+        coordinates: [
+          [27.730, 85.320],
+          [27.715, 85.325],
+          [27.700, 85.330]
         ]
       }
     ]

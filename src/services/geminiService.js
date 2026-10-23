@@ -149,15 +149,122 @@ Perform full change detection and multimodal damage assessment. You MUST reply O
  */
 export function simulateGeospatialAnalysis(scenarioMetadata, engineLabel = 'Spaceborne Multi-Modal Engine') {
   const m = scenarioMetadata?.metrics || {};
-  const isValencia = scenarioMetadata?.id === 'valencia-2024';
+  const scenarioId = scenarioMetadata?.id;
 
+  if (scenarioId === 'valencia-2024') {
+    return {
+      isLiveGemini: false,
+      modelUsed: engineLabel,
+      timestamp: new Date().toISOString(),
+      summary: 'Catastrophic flash-flooding detected along the Rambla del Poyo watershed. High-velocity surface torrents have completely inundated industrial zones and residential basements. Critical highways CV-400 and A-3 severed by flash water and mud debris.',
+      severity: m.severity || 'SEVERE',
+      damageScore: m.damageScore || 96,
+      confidenceScore: 98.1,
+      estimatedInundatedAreaKm2: m.inundatedAreaKm2 || 89.2,
+      inundatedIncreasePct: m.inundatedAreaIncreasePct || 620,
+      estimatedCasualtiesStranded: m.affectedPopulation || 38200,
+      submergedBuildings: m.submergedBuildings || 3450,
+      criticalInfrastructureCutOff: [
+        'Hospital de l\'Horta Sud Basement Ward',
+        'Paiporta Rail Viaduct and High-Speed Line',
+        'CV-400 Metropolitan Arterial Bridge',
+        'Sedaví Electric Power Substation'
+      ],
+      safeEvacuationCorridors: [
+        'Eastern High-Ground Ridge via CV-407 toward Valencia General Hospital',
+        'Northern Bypass via Torrent Bypass Interchange'
+      ],
+      sensorFusionDetails: {
+        sarBackscatterReductionDb: -8.2,
+        waterIndexMethod: 'Copernicus Sentinel-1 SAR C-Band (VV+VH) + Sentinel-2 MNDWI',
+        cloudPenetration: '100% All-Weather Radar Penetration'
+      },
+      tacticalRecommendations: [
+        'Pre-position military amphibious personnel carriers at CV-407 junction',
+        'Deploy high-capacity dewatering pumps to municipal hospital basement',
+        'Issue emergency cell-broadcast evacuation to low-lying Sedaví basin'
+      ]
+    };
+  }
+
+  if (scenarioId === 'kerala-2024') {
+    return {
+      isLiveGemini: false,
+      modelUsed: engineLabel,
+      timestamp: new Date().toISOString(),
+      summary: 'Extreme monsoon deluge has forced emergency dam reservoir sluice gate discharges along the Periyar River basin. Severe inundation has submerged low-lying Aluva municipal sectors and the NH-544 transport corridor.',
+      severity: m.severity || 'SEVERE',
+      damageScore: m.damageScore || 89,
+      confidenceScore: 96.8,
+      estimatedInundatedAreaKm2: m.inundatedAreaKm2 || 112.4,
+      inundatedIncreasePct: m.inundatedAreaIncreasePct || 290,
+      estimatedCasualtiesStranded: m.affectedPopulation || 19400,
+      submergedBuildings: m.submergedBuildings || 1260,
+      criticalInfrastructureCutOff: [
+        'Marthanda Varma Bridge Approach Road',
+        'Aluva Taluk Hospital Ground Ward',
+        'Kochi Airport Southern Perimeter Ditch',
+        'Periyar Water Pumping Substation'
+      ],
+      safeEvacuationCorridors: [
+        'Seaport-Airport Elevated Corridor toward Kakkanad Highlands',
+        'MC Road Northern Evacuation Route'
+      ],
+      sensorFusionDetails: {
+        sarBackscatterReductionDb: -6.4,
+        waterIndexMethod: 'Copernicus Sentinel-1 SAR + Optical Landsat-9 TIRS',
+        cloudPenetration: '100% Monsoon Cloud Penetration'
+      },
+      tacticalRecommendations: [
+        'Mobilize motorized dinghies for elderly evacuation in Aluva Bank Colony',
+        'Establish mobile drinking water distribution at Kakkanad Relief Staging Base',
+        'Maintain emergency sandbag levee around substation switchyard'
+      ]
+    };
+  }
+
+  if (scenarioId === 'nepal-2024') {
+    return {
+      isLiveGemini: false,
+      modelUsed: engineLabel,
+      timestamp: new Date().toISOString(),
+      summary: 'High-altitude cloudburst has generated rapid debris-laden torrential river swell through the Koshi and Bhotekoshi river valleys. Critical suspension bridges have suffered anchor failures, leaving steep valley settlements isolated.',
+      severity: m.severity || 'CRITICAL',
+      damageScore: m.damageScore || 94,
+      confidenceScore: 97.2,
+      estimatedInundatedAreaKm2: m.inundatedAreaKm2 || 64.8,
+      inundatedIncreasePct: m.inundatedAreaIncreasePct || 410,
+      estimatedCasualtiesStranded: m.affectedPopulation || 12800,
+      submergedBuildings: m.submergedBuildings || 890,
+      criticalInfrastructureCutOff: [
+        'Bhotekoshi Cable Suspension Bridge (Collapsed)',
+        'Araniko Highway Sector 2 Landslip Inundation',
+        'Sindhupalchok Rural Health Post',
+        'Micro-Hydro Turbine Station 3'
+      ],
+      safeEvacuationCorridors: [
+        'Ridge Footpath Corridor leading to Upper Ridge School Helipad',
+        'Southern Elevated Terrace Spur'
+      ],
+      sensorFusionDetails: {
+        sarBackscatterReductionDb: -9.1,
+        waterIndexMethod: 'Sentinel-1 SAR C-Band + Digital Elevation Model Slope Filter',
+        cloudPenetration: '100% All-Weather Radar Penetration'
+      },
+      tacticalRecommendations: [
+        'Execute immediate helicopter winch rescue for 24 stranded roadworkers',
+        'Airdrop satellite satellite comms and water purification to isolated ridge hamlets',
+        'Suspend all canyon transit along Araniko Highway'
+      ]
+    };
+  }
+
+  // Default / Assam Brahmaputra or Custom Upload
   return {
     isLiveGemini: false,
     modelUsed: engineLabel,
     timestamp: new Date().toISOString(),
-    summary: isValencia
-      ? 'Catastrophic flash-flooding detected along the Rambla del Poyo watershed. High-velocity surface torrents have completely inundated industrial zones and residential basements. Critical highways CV-400 and A-3 severed by flash water and mud debris.'
-      : 'Severe riverine inundation detected along the Brahmaputra alluvial basin. Synthetic Aperture Radar (SAR) indicates a 340% surge in water surface footprint, breaching Sector 3 earthen embankments and cutting off 14 rural settlements.',
+    summary: 'Severe riverine inundation detected along the Brahmaputra alluvial basin. Synthetic Aperture Radar (SAR) indicates a 340% surge in water surface footprint, breaching Sector 3 earthen embankments and cutting off 14 rural settlements.',
     severity: m.severity || 'CRITICAL',
     damageScore: m.damageScore || 92,
     confidenceScore: 97.4,
@@ -165,44 +272,26 @@ export function simulateGeospatialAnalysis(scenarioMetadata, engineLabel = 'Spac
     inundatedIncreasePct: m.inundatedAreaIncreasePct || 340,
     estimatedCasualtiesStranded: m.affectedPopulation || 24500,
     submergedBuildings: m.submergedBuildings || 1820,
-    criticalInfrastructureCutOff: isValencia 
-      ? [
-          'Hospital de l\'Horta Sud Basement Ward',
-          'Paiporta Rail Viaduct and High-Speed Line',
-          'CV-400 Metropolitan Arterial Bridge',
-          'Sedaví Electric Power Substation'
-        ]
-      : [
-          'NH-37 Kolong River Overpass (Washed Out)',
-          'Morigaon Sub-District Health Clinic',
-          'Samaguri 132kV Power Grid Substation',
-          'Sector 3 River Embankment Road'
-        ],
-    safeEvacuationCorridors: isValencia
-      ? [
-          'Eastern High-Ground Ridge via CV-407 toward Valencia General Hospital',
-          'Northern Bypass via Torrent Bypass Interchange'
-        ]
-      : [
-          'Western Bypass elevated highway towards Central Higher Secondary School Camp',
-          'Highland Corridor leading to Railway Community Hall'
-        ],
+    criticalInfrastructureCutOff: [
+      'NH-37 Kolong River Overpass (Washed Out)',
+      'Morigaon Sub-District Health Clinic',
+      'Samaguri 132kV Power Grid Substation',
+      'Sector 3 River Embankment Road'
+    ],
+    safeEvacuationCorridors: [
+      'Western Bypass elevated highway towards Central Higher Secondary School Camp',
+      'Highland Corridor leading to Railway Community Hall'
+    ],
     sensorFusionDetails: {
-      sarBackscatterReductionDb: isValencia ? -8.2 : -7.1,
+      sarBackscatterReductionDb: -7.1,
       waterIndexMethod: 'Copernicus Sentinel-1 SAR C-Band (VV+VH) + Sentinel-2 MNDWI',
       cloudPenetration: '100% All-Weather Radar Penetration'
     },
-    tacticalRecommendations: isValencia
-      ? [
-          'Pre-position military amphibious personnel carriers at CV-407 junction',
-          'Deploy high-capacity dewatering pumps to municipal hospital basement',
-          'Issue emergency cell-broadcast evacuation to low-lying Sedaví basin'
-        ]
-      : [
-          'Dispatch 6 NDRF motorized inflatable rescue boats to Sector 3 rooftop clusters',
-          'Airdrop emergency rations and water purification tablets to 14 cut-off villages',
-          'Establish medical triage staging post at Railway Community Hall high ground'
-        ]
+    tacticalRecommendations: [
+      'Dispatch 6 NDRF motorized inflatable rescue boats to Sector 3 rooftop clusters',
+      'Airdrop emergency rations and water purification tablets to 14 cut-off villages',
+      'Establish medical triage staging post at Railway Community Hall high ground'
+    ]
   };
 }
 
@@ -213,18 +302,17 @@ export async function askGeminiCopilot({ question, currentContext, apiKey }) {
   const effectiveKey = apiKey || localStorage.getItem('floodguard_gemini_key') || '';
   
   if (!effectiveKey) {
-    // Context-aware smart rule response
     const q = question.toLowerCase();
     if (q.includes('hospital') || q.includes('medical') || q.includes('patient')) {
-      return "URGENT MEDICAL PRIORITY: Morigaon Health Clinic is currently submerged under 1.6m of water with 48 patients stranded on the 2nd floor. Access from the southern roadway is impassable. Immediate recommendation: Dispatch NDRF boat team Bravo from Western Bypass for prioritized patient evacuation.";
+      return `URGENT MEDICAL PRIORITY: For ${currentContext?.scenario?.name || 'this disaster zone'}, regional medical centers are experiencing severe access road inundation. Immediate directive: dispatch shallow-draft rescue boat teams from designated high-ground corridors for prioritized patient evacuation and emergency power restoration.`;
     }
     if (q.includes('bridge') || q.includes('road') || q.includes('route')) {
-      return "ROUTING ADVISORY: NH-37 Kolong River Overpass is confirmed washed out / collapsed. Do NOT dispatch ground vehicles through Sector 4. The Western Bypass (Elevated Corridor) remains 100% passable and is the designated emergency route to Central Relief Camp.";
+      return `ROUTING ADVISORY: Main arterial overpasses in ${currentContext?.scenario?.name || 'the flooded sector'} are flagged as submerged or structurally compromised. Do NOT route heavy rescue convoys through low-lying bridges. Utilize designated elevated bypass routes and ridge corridors.`;
     }
     if (q.includes('shelter') || q.includes('capacity') || q.includes('people')) {
-      return "SHELTER STATUS: Central Higher Secondary School is at 88% capacity (1,320 / 1,500 beds occupied). Railway Community Hall Shelter is at 56% capacity with dry road access and clean water. Reroute incoming evacuees to Railway Community Hall.";
+      return `SHELTER INTELLIGENCE: Designated high-school and community shelters are operating between 56% and 88% capacity. Secondary shelters have verified potable water and dry access roads. Reroute incoming evacuee convoys to secondary facilities to avoid bottlenecking.`;
     }
-    return `COPILOT SITUATIONAL INTELLIGENCE: Based on satellite SAR backscatter change detection in ${currentContext?.scenario?.name || 'this disaster zone'}, peak inundation depth is ${currentContext?.scenario?.metrics?.peakWaterDepthM || '3.4'}m. Total active stranded population is estimated at ${(currentContext?.scenario?.metrics?.affectedPopulation || 24500).toLocaleString()}. Primary operational directive: maintain Western Bypass corridor clear for relief convoys.`;
+    return `COPILOT SITUATIONAL INTELLIGENCE: Based on satellite SAR backscatter change detection in ${currentContext?.scenario?.name || 'this disaster zone'}, peak inundation depth is ${currentContext?.scenario?.metrics?.peakWaterDepthM || '3.4'}m. Total active stranded population is estimated at ${(currentContext?.scenario?.metrics?.affectedPopulation || 24500).toLocaleString()}. Primary operational directive: prioritize relief convoys along verified safe corridors.`;
   }
 
   try {
@@ -258,6 +346,6 @@ Provide a direct, authoritative, actionable 3-4 sentence response for the emerge
     return data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated from Gemini.';
   } catch (err) {
     console.warn('Copilot live query failed, returning fallback:', err);
-    return `SITUATIONAL ADVISORY: Emergency operations center records indicate high floodwaters persist across ${currentContext?.scenario?.name || 'the sector'}. Maintain radio communication with NDRF boat units and ensure Western Evacuation Bypass remains unblocked.`;
+    return `SITUATIONAL ADVISORY: Emergency operations records indicate high floodwaters persist across ${currentContext?.scenario?.name || 'the sector'}. Maintain radio communication with field rescue teams and keep primary evacuation corridors clear.`;
   }
 }

@@ -99,6 +99,8 @@ export default function App() {
         {activeTab === 'satellite' && (
           <SatelliteUploadCompare
             selectedScenario={selectedScenario}
+            scenarios={scenarios}
+            onSelectScenario={setSelectedScenario}
             beforeImage={beforeImage}
             setBeforeImage={setBeforeImage}
             afterImage={afterImage}

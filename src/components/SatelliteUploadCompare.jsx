@@ -9,12 +9,17 @@ import {
   CheckCircle2, 
   AlertCircle,
   Cpu,
-  Info
+  Info,
+  Download,
+  FileImage,
+  Flame
 } from 'lucide-react';
 import SplitSlider from './SplitSlider';
 
 export default function SatelliteUploadCompare({
   selectedScenario,
+  scenarios = [],
+  onSelectScenario,
   beforeImage,
   setBeforeImage,
   afterImage,
@@ -24,8 +29,9 @@ export default function SatelliteUploadCompare({
   analysisResult,
   hasApiKey
 }) {
-  const [viewMode, setViewMode] = useState('split'); // 'split' | 'sideBySide' | 'mask'
+  const [viewMode, setViewMode] = useState('split'); // 'split' | 'sideBySide'
   const [uploadFeedback, setUploadFeedback] = useState(null);
+  const [isCustomImage, setIsCustomImage] = useState(false);
 
   const handleFileUpload = (e, target) => {
     const file = e.target.files?.[0];
@@ -40,12 +46,13 @@ export default function SatelliteUploadCompare({
     reader.onload = (event) => {
       if (target === 'before') {
         setBeforeImage(event.target.result);
-        setUploadFeedback('Custom Pre-Flood image loaded.');
+        setUploadFeedback(`Custom Pre-Flood image (${file.name}) loaded.`);
       } else {
         setAfterImage(event.target.result);
-        setUploadFeedback('Custom Post-Flood / SAR image loaded.');
+        setUploadFeedback(`Custom Post-Flood image (${file.name}) loaded.`);
       }
-      setTimeout(() => setUploadFeedback(null), 3000);
+      setIsCustomImage(true);
+      setTimeout(() => setUploadFeedback(null), 3500);
     };
     reader.readAsDataURL(file);
   };
@@ -53,7 +60,18 @@ export default function SatelliteUploadCompare({
   const handleResetToPreset = () => {
     setBeforeImage(selectedScenario.beforeImage);
     setAfterImage(selectedScenario.afterImage);
-    setUploadFeedback('Reset to high-resolution satellite preset.');
+    setIsCustomImage(false);
+    setUploadFeedback(`Reset to ${selectedScenario.name} satellite preset.`);
+    setTimeout(() => setUploadFeedback(null), 3000);
+  };
+
+  const handleDownloadSample = (variant) => {
+    const dataUrl = variant === 'before' ? beforeImage : afterImage;
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = `Satellite_${selectedScenario.id}_${variant}.svg`;
+    a.click();
+    setUploadFeedback(`Downloaded ${variant.toUpperCase()} satellite sample image.`);
     setTimeout(() => setUploadFeedback(null), 3000);
   };
 
@@ -70,6 +88,11 @@ export default function SatelliteUploadCompare({
             <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-950 text-cyan-300 border border-cyan-800 font-mono">
               {selectedScenario.badge}
             </span>
+            {isCustomImage && (
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-800 font-mono animate-pulse">
+                USER UPLOADED IMAGERY
+              </span>
+            )}
           </div>
           <p className="text-xs text-slate-400 mt-0.5">
             Compare pre-flood optical imagery with all-weather Sentinel-1 Synthetic Aperture Radar (SAR) backscatter.
@@ -123,9 +146,38 @@ export default function SatelliteUploadCompare({
         </div>
       </div>
 
+      {/* Preset Satellite Pairs Quick Switcher Bar */}
+      {scenarios && scenarios.length > 0 && (
+        <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div className="flex items-center gap-2 text-slate-400">
+            <FileImage className="w-4 h-4 text-cyan-400" />
+            <span className="font-semibold text-slate-300">Test Different Satellite Scenarios:</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-1.5">
+            {scenarios.map(sc => (
+              <button
+                key={sc.id}
+                onClick={() => {
+                  if (onSelectScenario) onSelectScenario(sc);
+                  setIsCustomImage(false);
+                }}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
+                  selectedScenario.id === sc.id && !isCustomImage
+                    ? 'bg-cyan-600 text-white font-bold shadow-md shadow-cyan-600/30'
+                    : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700'
+                }`}
+              >
+                {sc.name.split(' (')[0]}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {uploadFeedback && (
         <div className="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-2 animate-fade-in">
-          <CheckCircle2 className="w-4 h-4" />
+          <CheckCircle2 className="w-4 h-4 shrink-0" />
           <span>{uploadFeedback}</span>
         </div>
       )}
@@ -191,24 +243,45 @@ export default function SatelliteUploadCompare({
           <div className="mt-4 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2">
             <div className="flex items-center gap-3">
               <span className="font-mono text-slate-300">
-                Resolution: <strong className="text-cyan-400">10m</strong>
+                Resolution: <strong className="text-cyan-400">{selectedScenario.resolution || '10m'}</strong>
               </span>
               <span>•</span>
               <span className="font-mono text-slate-300">
-                Bands: <strong className="text-cyan-400">VV + VH Dual-Pol</strong>
+                Sensor: <strong className="text-cyan-400">{selectedScenario.satellite || 'Sentinel-1 SAR'}</strong>
               </span>
               <span>•</span>
               <span className="font-mono text-slate-300">
-                Water Index: <strong className="text-cyan-400">MNDWI &gt; 0.35</strong>
+                Date: <strong className="text-cyan-400">{selectedScenario.date || '2024'}</strong>
               </span>
             </div>
-            <button
-              onClick={handleResetToPreset}
-              className="text-xs text-slate-400 hover:text-cyan-400 flex items-center gap-1 transition-colors"
-            >
-              <RotateCcw className="w-3 h-3" />
-              <span>Reset to Scenario Default</span>
-            </button>
+            
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleDownloadSample('before')}
+                className="text-[11px] text-slate-400 hover:text-emerald-400 flex items-center gap-1 transition-colors"
+                title="Download Pre-flood image to test local file upload"
+              >
+                <Download className="w-3 h-3" />
+                <span>Save Pre Image</span>
+              </button>
+              <span>•</span>
+              <button
+                onClick={() => handleDownloadSample('after')}
+                className="text-[11px] text-slate-400 hover:text-cyan-400 flex items-center gap-1 transition-colors"
+                title="Download Post-flood SAR image to test local file upload"
+              >
+                <Download className="w-3 h-3" />
+                <span>Save SAR Image</span>
+              </button>
+              <span>•</span>
+              <button
+                onClick={handleResetToPreset}
+                className="text-[11px] text-slate-400 hover:text-cyan-400 flex items-center gap-1 transition-colors"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>Reset</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -221,7 +294,7 @@ export default function SatelliteUploadCompare({
               Upload Satellite Imagery
             </h3>
             <p className="text-xs text-slate-400">
-              Upload before/after TIFF, PNG, or JPG satellite or aerial drone imagery to run multimodal change detection.
+              Upload custom before/after PNG, JPG, or TIFF satellite or aerial drone imagery to run change detection.
             </p>
 
             {/* Pre-Flood Upload Box */}
@@ -276,7 +349,7 @@ export default function SatelliteUploadCompare({
             </p>
             <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
               <Info className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-              <span>Ready for instant evaluation &amp; hackathon jury presentation.</span>
+              <span>Ready for jury evaluation with 4 distinct geographic flood scenarios.</span>
             </div>
           </div>
         </div>
